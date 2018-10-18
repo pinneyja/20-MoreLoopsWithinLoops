@@ -28,9 +28,7 @@ def run_test_largest_number():
 
     # Test 1:
     expected = 13
-    answer = largest_number([(3, 1, 4),
-                             (13, 10, 11, 7, 10),
-                             [1, 2, 3, 4]])
+    answer = largest_number([(3, 1, 4), (13, 10, 11, 7, 10), [1, 2, 3, 4]])
     print('Expected and actual are:', expected, answer)
 
     # Test 2:
@@ -94,10 +92,11 @@ def largest_number(seq_seq):
     else:
         return None
 
+
 def run_test_largest_negative_number():
     """ Tests the    largest_negative_number    function. """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement this TEST function.
+    # DONE: 4. Implement this TEST function.
     #   It TESTS the  largest_negative_number  function defined below.
     #
     #   Include enough tests to give you confidence that your solution
@@ -107,6 +106,23 @@ def run_test_largest_negative_number():
     print('-------------------------------------------------')
     print('Testing the   LARGEST_NEGATIVE_NUMBER   function:')
     print('-------------------------------------------------')
+
+    # Test 1:
+    expected = None
+    answer = largest_negative_number([(3, 1, 4),
+                             (13, 10, 11, 7, 10),
+                             [1, 2, 3, 4]])
+    print('Expected and actual are:', expected, answer)
+
+    # Test 2:
+    expected = -1111111111111111
+    answer = largest_negative_number(([], [-1111111111111111], []))
+    print('Expected and actual are:', expected, answer)
+
+    # Test 3:
+    expected = -0.1
+    answer = largest_negative_number(([-10], [-3], [-0.1]))
+    print('Expected and actual are:', expected, answer)
 
 
 def largest_negative_number(seq_seq):
@@ -132,13 +148,25 @@ def largest_negative_number(seq_seq):
     where each subsequence contains only numbers.
     """
     # ------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DONE: 5. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # CHALLENGE: Try to solve this problem with no additional sequences
     #   being constructed (so the SPACE allowed is limited to the
     #   give sequence of sequences plus any non-list variables you want).
     # ------------------------------------------------------------------
+    negs = []
+    for seq in seq_seq:
+        for item in seq:
+            if item < 0:
+                negs += [item]
+    if negs == []:
+        return None
+    min = negs[0]
+    for neg in negs:
+        if neg > min:
+            min = neg
+    return min
 
 
 def run_test_first_is_elsewhere_too():
@@ -372,7 +400,7 @@ def first_is_elsewhere_too(seq_seq):
     and the given argument is a sequence of sequences.
     """
     # ------------------------------------------------------------------
-    # TODO: 6. Implement and test this function.
+    # DONE: 6. Implement and test this function.
     #          Some tests are already written for you (above).
     #
     # IMPLEMENTATION RESTRICTION:
@@ -387,6 +415,15 @@ def first_is_elsewhere_too(seq_seq):
     #   in this problem, as doing so would defeat the goal of providing
     #   practice at loops within loops (within loops within ...)
     # ------------------------------------------------------------------
+    exists_elsewhere = False
+
+    for item in seq_seq[0]:
+        for k in range(1, len(seq_seq)):
+            for it in seq_seq[k]:
+                if it == item:
+                    exists_elsewhere = True
+
+    return exists_elsewhere
 
 
 # ----------------------------------------------------------------------
